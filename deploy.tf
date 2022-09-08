@@ -102,15 +102,20 @@ resource "aws_lambda_function" "lambda_sync" {
 
   environment {
     variables = {
-      cluster_dev   = var.cluster_dev
-      cluster_prod  = var.cluster_prod
-      test_role_arn = var.test_role_arn
+      #following are in json format
+      allow                = var.allow   
+      conversions          = var.conversions
+      deny                 = var.deny
+      #  
+      prefix_destination   = var.prefix_destination
+      prefix_source        = var.prefix_source
+      repo_path            = var.repo_path
 
     }
   }
 
   filename      = "function.zip"
-  function_name = "${var.prefix}-${var.deploy_environment}-pipeline-launcher"
+  function_name = "${var.prefix}-${var.deploy_environment}-codecommit-sync"
   handler       = "lambda_function.handler"
   # 0 disables
   reserved_concurrent_executions = 1
@@ -140,7 +145,7 @@ resource "aws_lambda_permission" "with_sns" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "lambda_error" {
-  alarm_name          = "${var.prefix}-events-error"
+  alarm_name          = "${var.prefix}-sync-error"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "Errors"
@@ -158,7 +163,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_error" {
   alarm_actions = [aws_sns_topic.lambda_error.arn]
 }
 resource "aws_sns_topic" "lambda_error" {
-  name = "${var.prefix}-events-error"
+  name = "${var.prefix}-sync-error"
   tags = var.tag
 }
 resource "aws_sns_topic_policy" "lambda_error_policy" {
@@ -167,61 +172,6 @@ resource "aws_sns_topic_policy" "lambda_error_policy" {
   policy = data.aws_iam_policy_document.sns_lambda_error_access_policy.json
 }
 
-#data "aws_iam_policy_document" "sns_lambda_error_access_policy" {
-#  policy_id = "__default_policy_ID"
-#
-#  statement {
-#    actions = [
-#      "SNS:GetTopicAttributes",
-#      "SNS:SetTopicAttributes",
-#      "SNS:AddPermission",
-#      "SNS:RemovePermission",
-#      "SNS:DeleteTopic",
-#      "SNS:Subscribe",
-#      "SNS:ListSubscriptionsByTopic",
-#      "SNS:Publish",
-#      "SNS:Receive"
-#    ]
-#
-#    condition {
-#      test     = "StringEquals"
-#      variable = "AWS:SourceOwner"
-#
-#      values = [
-#        local.account_id,
-#      ]
-#    }
-#
-#    effect = "Allow"
-#
-#    principals {
-#      type        = "AWS"
-#      identifiers = ["*"]
-#    }
-#
-#    resources = [
-#      aws_cloudwatch_metric_alarm.lambda_error.arn,
-#
-#    ]
-#
-#    sid = "__default_statement_ID"
-#  }
-#  statement {
-#    actions = [
-#      "sns:Publish",
-#    ]
-#    effect = "Allow"
-#
-#    principals {
-#      type        = "Service"
-#      identifiers = ["events.amazonaws.com"]
-#    }
-#
-#    resources = [
-#      aws_cloudwatch_metric_alarm.lambda_error.arn,
-#    ]
-#  }
-#}
 data "aws_iam_policy_document" "sns_lambda_error_access_policy" {
   policy_id = "__default_policy_ID"
 
@@ -249,7 +199,7 @@ resource "aws_lambda_function" "error_parser" {
     }
   }
   filename      = "error_parser.zip"
-  function_name = "${var.prefix}-${var.deploy_environment}-deploy-error-parser"
+  function_name = "${var.prefix}-${var.deploy_environment}-sync-error-parser"
   handler       = "lambda_function.handler"
   # 0 disables
   reserved_concurrent_executions = 1
@@ -260,7 +210,7 @@ resource "aws_lambda_function" "error_parser" {
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "error_parser_logfilter" {
-  name            = "${var.prefix}-${var.deploy_environment}-error-parser-logfilter"
+  name            = "${var.prefix}-${var.deploy_environment}-sync-error-parser-logfilter"
   log_group_name  = "/aws/lambda/${aws_lambda_function.lambda_sync.function_name}"
   filter_pattern  = "ERROR"
   destination_arn = aws_lambda_function.error_parser.arn
