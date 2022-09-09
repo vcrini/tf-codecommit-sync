@@ -1,20 +1,28 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
-variable "cluster_dev" {
-  description = "environment variable needed to Lambda for deploying in dev cluster"
+variable "prefix_destination" {
+  description = "incoming prefix for codecommit"
   type        = string
 }
-variable "cluster_prod" {
-  description = "environment variable needed to Lambda for deploying in prod cluster"
+variable "prefix_source" {
+  description = "outcoming prefix for codecommit"
   type        = string
 }
-variable "deploy_environment" {
-  description = "is environment test or prod"
+variable "repo_path" {
+  description = "something in the form 'git-codecommit.eu-west-1.amazonaws.com/v1/repos'"
   type        = string
 }
-variable "prefix" {
-  description = "some to differentiate, usually project 'fdh' or 'dpl'"
+variable "conversions" {
+  description = "dictionary with special repo conversions in json"
+  type        = string
+}
+variable "deny" {
+  description = "list of repos to not be converted"
+  type        = string
+}
+variable "allow" {
+  description = "list of repo to be converted if empty all are permitted"
   type        = string
 }
 variable "retention_in_days" {
