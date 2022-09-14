@@ -33,7 +33,7 @@ resource "aws_sns_topic" "sync" {
 }
 resource "aws_cloudwatch_event_target" "deploy" {
   arn  = aws_sns_topic.sync.arn
-  rule = aws_cloudwatch_event_rule.sync.name
+  rule = aws_cloudwatch_event_rule.commit.name
 
 }
 resource "aws_sns_topic_policy" "container_status_policy" {
@@ -103,13 +103,13 @@ resource "aws_lambda_function" "lambda_sync" {
   environment {
     variables = {
       #following are in json format
-      allow                = var.allow   
-      conversions          = var.conversions
-      deny                 = var.deny
+      allow       = var.allow
+      conversions = var.conversions
+      deny        = var.deny
       #  
-      prefix_destination   = var.prefix_destination
-      prefix_source        = var.prefix_source
-      repo_path            = var.repo_path
+      prefix_destination = var.prefix_destination
+      prefix_source      = var.prefix_source
+      repo_path          = var.repo_path
 
     }
   }
@@ -192,6 +192,10 @@ data "aws_iam_policy_document" "sns_lambda_error_access_policy" {
 
   }
 }
+#resource "aws_lambda_layer_version" "lambda_layer" {
+#  filename   = "libraries.zip"
+#  layer_name = "git_layer_name"
+#}
 resource "aws_lambda_function" "error_parser" {
   environment {
     variables = {
@@ -201,6 +205,8 @@ resource "aws_lambda_function" "error_parser" {
   filename      = "error_parser.zip"
   function_name = "${var.prefix}-${var.deploy_environment}-sync-error-parser"
   handler       = "lambda_function.handler"
+  #layers   = ["arn:aws:lambda:eu-west-1:553035198032:layer:git-lambda2:8"]
+  ##layers   = [aws_lambda_layer_version.lambda_layer.arn]
   # 0 disables
   reserved_concurrent_executions = 1
   role                           = local.role_arn_lambda

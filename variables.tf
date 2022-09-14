@@ -1,6 +1,14 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
+variable "deploy_environment" {
+  description = "is environment test or prod"
+  type        = string
+}
+variable "prefix" {
+  description = "some to differentiate, usually project 'fdh' or 'dpl'"
+  type        = string
+}
 variable "prefix_destination" {
   description = "incoming prefix for codecommit"
   type        = string
@@ -36,10 +44,6 @@ variable "role_arn" {
 }
 variable "role_arn_lambda_name" {
   description = "role used by lambda"
-  type        = string
-}
-variable "test_role_arn" {
-  description = "role needed from lambda to assume in order to access to test environment from production"
   type        = string
 }
 variable "tag" {

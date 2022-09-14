@@ -1,5 +1,5 @@
-import boto3
-import datetime
+# from git.repo import Repo
+# from git import RemoteProgress
 import json
 import os
 import re
@@ -25,6 +25,35 @@ if i is not None:
     deny = json.loads(i)
 if a is not None:
     allow = json.loads(a)
+
+# subprocess.run("tar xf git-2.4.3.tar -C /tmp/", Shell=True)
+# command = "tar xf git-2.4.3.tar -C /tmp/"
+# ret = subprocess.run(command,
+#                      shell=True,
+#                      stdout=subprocess.PIPE,
+#                      stderr=subprocess.PIPE)
+# print(ret.stdout.decode('utf-8'))
+# class Progress(RemoteProgress):
+#
+#    def __init__(self):
+#        super().__init__()
+#        self.output = []
+#
+#    def line_dropped(self, line):
+#        self.output.append(line)
+#
+#    def update(self, *args):
+#        self.output.append(self._cur_line)
+#
+#    def flush(self):
+#        self.output = []
+#
+#    def print(self):
+#        self.put()
+#        self.flush()
+#
+#    def put(self):
+#        print("\n".join(self.output))
 
 
 def handler(event, context):
@@ -59,23 +88,45 @@ def handler(event, context):
         print("converted from dict {}->{}".format(repo_source, repo_converted))
         repo_destination = repo_converted
     else:
-        repo_destination = re.sub(re.compile(
-                                  "^{}".format(prefix_source)),
-                                  prefix_destination,
-                                  repo_source)
-        print("converted from sub {}->{}".
-              format(repo_source, repo_destination))
+        repo_destination = re.sub(re.compile("^{}".format(prefix_source)),
+                                  prefix_destination, repo_source)
+        print("converted from sub {}->{}".format(repo_source,
+                                                 repo_destination))
+
+    # with tempfile.TemporaryDirectory() as clone_dir:
+    #    p = Progress()
+    #    repo = Repo.clone_from("{}/{}".format(
+    #                               repo_path,
+    #                               repo_source),
+    #                           clone_dir,
+    #                           progress=p,
+    #                           mirror=True)
+    #    p.print()
+    #    remote_name = "dest"
+    #    remote = repo.create_remote(
+    #        remote_name, "{}/{}".format(repo_path, repo_destination))
+    #    remote.push(progress=p, mirror=True)
+    #    p.print()
+
     with tempfile.TemporaryDirectory() as clone_dir:
         clone = """
         git clone --mirror {source} {clone_dir};
         cd {clone_dir};
         git remote add dest {destination}
         git push dest --mirror
-        """.format(
-            source="{}/{}".format(repo_path, repo_source),
-            clone_dir=clone_dir,
-            destination="{}/{}".format(repo_path, repo_destination))
+        """.format(source="{}/{}".format(repo_path, repo_source),
+                   clone_dir=clone_dir,
+                   destination="{}/{}".format(repo_path, repo_destination))
+                   #path="/tmp/usr/bin")
         print(clone)
-        ret = subprocess.run(clone, shell=True)
-        print(ret.stdout.decode())
+        ret = subprocess.run(clone,
+                             shell=True,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        print(ret.stdout.decode('utf-8'))
+        if ret.returncode > 0:
+            print("ERROR: {clone} gave {result} with {error}".format(
+                clone=clone,
+                result=ret.stdout.decode('utf-8'),
+                error=ret.stderr.decode('utf-8')))
     return event
