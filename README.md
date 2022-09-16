@@ -53,6 +53,7 @@ No modules.
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | how many days wait before deleting logs | `number` | `30` | no |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | assumed to create infrastructure in enviroment where .hcl is ran | `string` | n/a | yes |
 | <a name="input_role_arn_lambda_name"></a> [role\_arn\_lambda\_name](#input\_role\_arn\_lambda\_name) | role used by lambda | `string` | n/a | yes |
+| <a name="input_role_arn_lambda_sync_name"></a> [role\_arn\_lambda\_sync\_name](#input\_role\_arn\_lambda\_sync\_name) | role used by lambda | `string` | n/a | yes |
 | <a name="input_tag"></a> [tag](#input\_tag) | tag to be added | `map(any)` | `{}` | no |
 
 ## Outputs

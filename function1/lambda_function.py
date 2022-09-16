@@ -26,12 +26,9 @@ if i is not None:
 if a is not None:
     allow = json.loads(a)
 
-# subprocess.run("tar xf git-2.4.3.tar -C /tmp/", Shell=True)
+# subprocess.run("tar xf git-2.4.3.tar -C /tmp/", shell=True)
 # command = "tar xf git-2.4.3.tar -C /tmp/"
-# ret = subprocess.run(command,
-#                      shell=True,
-#                      stdout=subprocess.PIPE,
-#                      stderr=subprocess.PIPE)
+# ret = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 # print(ret.stdout.decode('utf-8'))
 # class Progress(RemoteProgress):
 #
@@ -109,15 +106,25 @@ def handler(event, context):
     #    p.print()
 
     with tempfile.TemporaryDirectory() as clone_dir:
+        os.environ['HOME'] = "/tmp"
+        os.environ['GIT_SSH_COMMAND'] = 'ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa'
+        print(os.getenv('HOME'))
+        print(os.getenv('GIT_SSH_COMMAND'))
         clone = """
+        mkdir -p $HOME/.ssh;
+        cp id_rsa $HOME/.ssh;
+        chmod 600 $HOME/.ssh/id_rsa;
+        ls -l $HOME/.ssh/id_rsa;
+        cat   $HOME/.ssh/id_rsa;
         git clone --mirror {source} {clone_dir};
+        ##ssh-agent bash -c 'ssh-add $HOME/.ssh/id_rsa;git clone --mirror {source} {clone_dir}';
         cd {clone_dir};
-        git remote add dest {destination}
+        git remote add dest {destination};
         git push dest --mirror
         """.format(source="{}/{}".format(repo_path, repo_source),
                    clone_dir=clone_dir,
-                   destination="{}/{}".format(repo_path, repo_destination))
-                   #path="/tmp/usr/bin")
+                   destination="{}/{}".format(repo_path, repo_destination),
+                   path="/tmp/usr/bin")
         print(clone)
         ret = subprocess.run(clone,
                              shell=True,

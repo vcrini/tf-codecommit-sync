@@ -46,6 +46,10 @@ variable "role_arn_lambda_name" {
   description = "role used by lambda"
   type        = string
 }
+variable "role_arn_lambda_sync_name" {
+  description = "role used by lambda"
+  type        = string
+}
 variable "tag" {
   default = {
   }
@@ -53,8 +57,9 @@ variable "tag" {
   type        = map(any)
 }
 locals {
-  region          = data.aws_region.current.name
-  account_id      = data.aws_caller_identity.current.account_id
-  role_prefix     = "arn:aws:iam::${local.account_id}:role/"
-  role_arn_lambda = "${local.role_prefix}${var.role_arn_lambda_name}"
+  region               = data.aws_region.current.name
+  account_id           = data.aws_caller_identity.current.account_id
+  role_prefix          = "arn:aws:iam::${local.account_id}:role/"
+  role_arn_lambda      = "${local.role_prefix}${var.role_arn_lambda_name}"
+  role_arn_lambda_sync = "${local.role_prefix}${var.role_arn_lambda_sync_name}"
 }

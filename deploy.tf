@@ -117,12 +117,17 @@ resource "aws_lambda_function" "lambda_sync" {
   filename      = "function.zip"
   function_name = "${var.prefix}-${var.deploy_environment}-codecommit-sync"
   handler       = "lambda_function.handler"
+  # AccessDeniedException
+  layers = ["arn:aws:lambda:eu-west-1:553035198032:layer:git-lambda2:8"]
+  ##layers   = [aws_lambda_layer_version.lambda_layer.arn]
   # 0 disables
   reserved_concurrent_executions = 1
-  role                           = local.role_arn_lambda
-  runtime                        = "python3.8"
-  source_code_hash               = filebase64sha256("function.zip")
-  tags                           = var.tag
+  #role                           = local.role_arn_lambda
+  role             = local.role_arn_lambda_sync
+  runtime          = "python3.8"
+  source_code_hash = filebase64sha256("function.zip")
+  tags             = var.tag
+  timeout          = 15
 }
 
 resource "aws_sns_topic_subscription" "send_container_status" {
@@ -205,8 +210,6 @@ resource "aws_lambda_function" "error_parser" {
   filename      = "error_parser.zip"
   function_name = "${var.prefix}-${var.deploy_environment}-sync-error-parser"
   handler       = "lambda_function.handler"
-  #layers   = ["arn:aws:lambda:eu-west-1:553035198032:layer:git-lambda2:8"]
-  ##layers   = [aws_lambda_layer_version.lambda_layer.arn]
   # 0 disables
   reserved_concurrent_executions = 1
   role                           = local.role_arn_lambda
