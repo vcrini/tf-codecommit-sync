@@ -88,8 +88,8 @@ def handler(event, context):
                              stderr=subprocess.PIPE)
         print(ret.stdout.decode('utf-8'))
         if ret.returncode > 0:
-            print("ERROR: {clone} gave {result} with {error}".format(
+            print("[ERROR] {clone} gave {result} with {error}".format(
                 clone=clone,
                 result=ret.stdout.decode('utf-8'),
-                error=ret.stderr.decode('utf-8')))
+                error=ret.stderr.decode('utf-8')).replace("\n", "\\n"))
     return event
