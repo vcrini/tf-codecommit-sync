@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 tmp/
 .terraform/
+.DS_Store
