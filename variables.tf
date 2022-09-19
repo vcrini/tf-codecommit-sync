@@ -56,6 +56,11 @@ variable "tag" {
   description = "tag to be added"
   type        = map(any)
 }
+variable "timeout" {
+  default     = 15
+  description = "how many seconds before quitting lambda"
+  type        = number
+}
 locals {
   region               = data.aws_region.current.name
   account_id           = data.aws_caller_identity.current.account_id

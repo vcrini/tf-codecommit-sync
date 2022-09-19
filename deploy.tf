@@ -127,7 +127,7 @@ resource "aws_lambda_function" "lambda_sync" {
   runtime          = "python3.8"
   source_code_hash = filebase64sha256("function.zip")
   tags             = var.tag
-  timeout          = 15
+  timeout          = var.timeout
 }
 
 resource "aws_sns_topic_subscription" "send_container_status" {
