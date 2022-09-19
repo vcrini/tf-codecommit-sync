@@ -26,32 +26,6 @@ if i is not None:
 if a is not None:
     allow = json.loads(a)
 
-# subprocess.run("tar xf git-2.4.3.tar -C /tmp/", shell=True)
-# command = "tar xf git-2.4.3.tar -C /tmp/"
-# ret = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# print(ret.stdout.decode('utf-8'))
-# class Progress(RemoteProgress):
-#
-#    def __init__(self):
-#        super().__init__()
-#        self.output = []
-#
-#    def line_dropped(self, line):
-#        self.output.append(line)
-#
-#    def update(self, *args):
-#        self.output.append(self._cur_line)
-#
-#    def flush(self):
-#        self.output = []
-#
-#    def print(self):
-#        self.put()
-#        self.flush()
-#
-#    def put(self):
-#        print("\n".join(self.output))
-
 
 def handler(event, context):
     print("incoming event:" + json.dumps(event))
@@ -90,21 +64,6 @@ def handler(event, context):
         print("converted from sub {}->{}".format(repo_source,
                                                  repo_destination))
 
-    # with tempfile.TemporaryDirectory() as clone_dir:
-    #    p = Progress()
-    #    repo = Repo.clone_from("{}/{}".format(
-    #                               repo_path,
-    #                               repo_source),
-    #                           clone_dir,
-    #                           progress=p,
-    #                           mirror=True)
-    #    p.print()
-    #    remote_name = "dest"
-    #    remote = repo.create_remote(
-    #        remote_name, "{}/{}".format(repo_path, repo_destination))
-    #    remote.push(progress=p, mirror=True)
-    #    p.print()
-
     with tempfile.TemporaryDirectory() as clone_dir:
         os.environ['HOME'] = "/tmp"
         os.environ['GIT_SSH_COMMAND'] = 'ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa'
@@ -114,10 +73,7 @@ def handler(event, context):
         mkdir -p $HOME/.ssh;
         cp id_rsa $HOME/.ssh;
         chmod 600 $HOME/.ssh/id_rsa;
-        ls -l $HOME/.ssh/id_rsa;
-        cat   $HOME/.ssh/id_rsa;
         git clone --mirror {source} {clone_dir};
-        ##ssh-agent bash -c 'ssh-add $HOME/.ssh/id_rsa;git clone --mirror {source} {clone_dir}';
         cd {clone_dir};
         git remote add dest {destination};
         git push dest --mirror
