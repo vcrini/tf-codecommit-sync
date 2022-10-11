@@ -61,7 +61,9 @@ conversions = {"fdh-source": "bitgdi-source",
                "fdh-spc_ddc-s3lab_pigini_data-consumer": "bitgdi-spc_ddc-s3lab_pigini_data-consumer",
                "fdh-spc_to_s3lab_pigini-dcfo-flow": "bitgdi-spc_to_s3lab_pigini-dcfo-flow",
                "fdh-supplier_tag-s3lab_pigini_data-consumer": "bitgdi-supplier_tag-s3lab_pigini_data-consumer",
-               "fdh-temera_rfid-s3lab_pigini_data-consumer": "bitgdi-rfid-s3lab_pigini_data-consumer"}
+               "fdh-temera_rfid-s3lab_pigini_data-consumer": "bitgdi-rfid-s3lab_pigini_data-consumer",
+               "fdh-digital-label-producer": "bitgdi-digital-label-producer",
+               "fdh-fdh-digital-api": "bitgdi-digital-api"}
 
 allow = [x for x in conversions.keys()]
 
