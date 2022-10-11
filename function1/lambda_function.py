@@ -63,7 +63,15 @@ conversions = {"fdh-source": "bitgdi-source",
                "fdh-supplier_tag-s3lab_pigini_data-consumer": "bitgdi-supplier_tag-s3lab_pigini_data-consumer",
                "fdh-temera_rfid-s3lab_pigini_data-consumer": "bitgdi-rfid-s3lab_pigini_data-consumer",
                "fdh-digital-label-producer": "bitgdi-digital-label-producer",
-               "fdh-fdh-digital-api": "bitgdi-digital-api"}
+               "fdh-fdh-digital-api": "bitgdi-digital-api",
+               "fdh-dp_atlante_to_fdh-all-flow": "bitgdi-dp_atlante_to_fdh-all-flow",
+               "fdh-enginenow_to_fdh-all-flow": "bitgdi-enginenow_to_fdh-all-flow",
+               "fdh-fdh-hq_elastic_tracking-consumer": "bitgdi-fdh-hq_elastic_tracking-consumer",
+               "fdh-fdh-hq_tracking-consumer": "bitgdi-fdh-hq_tracking-consumer",
+               "fdh-gps_hq-trigger-producer": "bitgdi-hq-gps-api",
+               "fdh-gps_hq_to_s3hq-suggestion_prod-flow": "bitgdi-gps_hq_to_s3hq-suggestion_prod-flow",
+               "fdh-gps_hq_to_s3hq-workorder_prop-flow": "bitgdi-gps_hq_to_s3hq-workorder_prop-flow",
+               "fdh-serpico_atlante_to_fdh-consumi-flow": "bitgdi-serpico_atlante_to_fdh-consumi-flow"}
 
 allow = [x for x in conversions.keys()]
 
