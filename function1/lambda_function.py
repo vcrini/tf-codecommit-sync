@@ -71,7 +71,16 @@ conversions = {"fdh-source": "bitgdi-source",
                "fdh-gps_hq-trigger-producer": "bitgdi-hq-gps-api",
                "fdh-gps_hq_to_s3hq-suggestion_prod-flow": "bitgdi-gps_hq_to_s3hq-suggestion_prod-flow",
                "fdh-gps_hq_to_s3hq-workorder_prop-flow": "bitgdi-gps_hq_to_s3hq-workorder_prop-flow",
-               "fdh-serpico_atlante_to_fdh-consumi-flow": "bitgdi-serpico_atlante_to_fdh-consumi-flow"}
+               "fdh-serpico_atlante_to_fdh-consumi-flow": "bitgdi-serpico_atlante_to_fdh-consumi-flow",
+               "fdh-fdh-marbella_elastic_tracking-consumer": "bitgdi-fdh-marbella_elastic_tracking-consumer",
+               "fdh-fdh-marbella_tracking-consumer": "bitgdi-fdh-marbella_tracking-consumer",
+               "fdh-fdh-marbella_xtannery_data-consumer": "bitgdi-fdh-xtannery_marbella_data-consumer",
+               "fdh-jde-marbella_xtannery_data-consumer": "bitgdi-jde-xtannery_marbella_data-consumer",
+               "fdh-jde_marbella_to_xtannery_marbella-anagrafiche-flow": "bitgdi-jde_marbella_to_xtannery_marbella-anagrafiche-flow",
+               "fdh-jde_marbella_to_xtannery_marbella-cambi-flow": "bitgdi-jde_marbella_to_xtannery_marbella-cambi-flow",
+               "fdh-jde_marbella_to_xtannery_marbella-saldi-flow": "bitgdi-jde_marbella_to_xtannery_marbella-saldi-flow",
+               "fdh-marbella-xtannery-api": "bitgdi-marbella-xtannery-api"}
+
 
 allow = [x for x in conversions.keys()]
 
