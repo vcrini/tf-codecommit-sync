@@ -16,7 +16,7 @@ deny = {}
 
 # just pigini
 
-conversions = {"fdh-source": "bitgdi-source",
+conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_data-consumer",
                "fdh-fdh-s3lab_ap-consumer": "bitgdi-fdh-s3lab_ap-consumer",
                "fdh-fdh-tracking-api": "bitgdi-fdh-tracking-api",
                "fdh-s3lab_garpe-ap-producer": "bitgdi-s3lab_garpe-ap-producer",
