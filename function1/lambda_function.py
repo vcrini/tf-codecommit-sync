@@ -243,7 +243,8 @@ conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_da
                "fdh-s3hq_wms-eas_ordini-consumer": "bitgdi-s3hq-eas_ordini-consumer",
                "fdh-s3hq_wms-eas_spedizioni-consumer": "bitgdi-s3hq-eas_spedizioni-consumer",
                "fdh-tms-s3hq_wms_data-consumer": "bitgdi-tms-s3hq_data-consumer",
-               "fdh-tms_to_s3hq-ddt-flow": "bitgdi-tms_to_s3hq-ddt-flow"}
+               "fdh-tms_to_s3hq-ddt-flow": "bitgdi-tms_to_s3hq-ddt-flow",
+               "fdh-edac-api": "bitgdi-edac-api"}
 
 
 allow = [x for x in conversions.keys()]
