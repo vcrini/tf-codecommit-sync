@@ -245,6 +245,12 @@ conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_da
                "fdh-s3hq_wms-eas_spedizioni-consumer": "bitgdi-s3hq-eas_spedizioni-consumer",
                "fdh-tms-s3hq_wms_data-consumer": "bitgdi-tms-s3hq_data-consumer",
                "fdh-tms_to_s3hq-ddt-flow": "bitgdi-tms_to_s3hq-ddt-flow",
+               "fdh-mes_garpe-temera_data-consumer": "bitgdi-mes_garpe-rfid_data-consumer",
+               "fdh-gecook-s3hq_data-consumer": "bitgdi-gecook-s3hq_data-consumer",
+               "fdh-matrix1-kubix_lg_data-consumer": "bitgdi-matrix1-kubix_lg_data-consumer",
+               "fdh-mes_garpe-cim_verbali_concerie-consumer": "bitgdi-mes_garpe-cim_verbali_concerie-consumer",
+               "fdh-fdh-sap_globe_data-consumer": "bitgdi-fdh-sap_globe_data-consumer",
+               "fdh-fdh-all_elastic_tracking-consumer": "bitgdi-fdh-all_elastic_tracking-consumer",
                "fdh-edac-api": "bitgdi-edac-api"}
 
 
