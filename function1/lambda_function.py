@@ -251,6 +251,7 @@ conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_da
                "fdh-mes_garpe-cim_verbali_concerie-consumer": "bitgdi-mes_garpe-cim_verbali_concerie-consumer",
                "fdh-fdh-sap_globe_data-consumer": "bitgdi-fdh-sap_globe_data-consumer",
                "fdh-fdh-all_elastic_tracking-consumer": "bitgdi-fdh-all_elastic_tracking-consumer",
+               "fdh-atlas-plab-api" : "bitgdi-plab-api",
                "fdh-edac-api": "bitgdi-edac-api"}
 
 
