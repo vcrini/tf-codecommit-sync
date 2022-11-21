@@ -88,7 +88,7 @@ conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_da
                "fdh-temera-data-producer": "bitgdi-rfid-api",
                "fdh-atlas-kubix-link-api": "bitgdi-kubix-api",
                "fdh-atlas-matrixone-api": "bitgdi-matrix1-api",
-               "fdh-s400-api": "bitgdi-s400-api",
+               "fdh-atlas-s400-api": "bitgdi-s400-api",
                "fdh-fdh-atlas_data-consumer": "bitgdi-fdh-atlas_data-consumer",
                "fdh-fdh-atlas_elastic_tracking-consumer": "bitgdi-fdh-atlas_elastic_tracking-consumer",
                "fdh-fdh-atlas_tracking-consumer": "bitgdi-fdh-atlas_tracking-consumer",
@@ -251,7 +251,8 @@ conversions = {"bitgdi-matrix1-kubix_lg_data-consumer": "fdh-matrix1-kubix_lg_da
                "fdh-mes_garpe-cim_verbali_concerie-consumer": "bitgdi-mes_garpe-cim_verbali_concerie-consumer",
                "fdh-fdh-sap_globe_data-consumer": "bitgdi-fdh-sap_globe_data-consumer",
                "fdh-fdh-all_elastic_tracking-consumer": "bitgdi-fdh-all_elastic_tracking-consumer",
-               "fdh-atlas-plab-api" : "bitgdi-plab-api",
+               "fdh-atlas-plab-api": "bitgdi-plab-api",
+               "bitgdi-idwh_ares_phoenix": "fdh-idwh_ares_phoenix",
                "fdh-edac-api": "bitgdi-edac-api"}
 
 
